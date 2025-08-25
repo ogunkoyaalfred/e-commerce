@@ -60,7 +60,7 @@ const Navbar = () => {
 
       <div className="cart hover:cursor-pointer">
         {
-          cartNumber && <span className="absolute top-1.5 ml-2 bg-amber-600 px-2 flex justify-center items-center rounded-full text-sm text-white">{total}</span>
+          cartNumber ? <span className="absolute top-1.5 bg-amber-600 px-1.5 flex justify-center items-center rounded-full text-sm text-white">{total}</span> : ''
         }
         <img 
         src="/icon-cart.svg" 
