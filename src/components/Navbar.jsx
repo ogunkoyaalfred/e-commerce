@@ -1,26 +1,28 @@
 import React from "react";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toggleCartState } from "../components/cartSlice";
 // import logo from '/logo.png'
 
 const Navbar = () => {
   const [isOpen, setisOpen] = useState(false);
+  const cartNumber = useSelector((state) => state.cart.items)
+
+  const total = cartNumber.reduce((sum, item) => sum + item.quantity, 0);
 
   const dispatch = useDispatch()
 
-  // const isCartOpen = useSelector((state) => state.isCartOpen)
   return (
     <div>
       <div className="flex flex-row items-center justify-around lg:justify-around p-2 sticky top-0 bg-white z-50 ">
       <div
-        className="hamburger md:hidden hover:cursor-pointer "
+        className="hamburger md:hidden hover:cursor-pointer"
         onClick={() => setisOpen(!isOpen)}
       >
         {isOpen ? (
-          <img src="/icon-close.svg" alt="" />
+          <img src="/icon-close.svg" alt="" className="w-5" />
         ) : (
-          <img src="/icon-menu.svg" alt="" className="" />
+          <img src="/icon-menu.svg" alt="" className="w-5" />
         )}
       </div>
 
@@ -37,29 +39,33 @@ const Navbar = () => {
         <ul
           className={`md:flex md:gap-10 ${
             isOpen
-              ? "absolute left-0 mt-6 flex-col leading-20 shadow-2xl bg-white h-lvh w-1/2 p-4 -z-50 transition-all duration-500 ease-in-out"
+              ? "absolute left-0 mt-11 flex-col leading-20 shadow-2xl bg-white h-lvh w-1/2 p-4 -z-50 transition-all duration-500 ease-in-out"
               : " hidden"
           }`}
         >
           <li>
-            <a href="">Collections</a>
+            <a href="" className="hover:text-amber-600">Collections</a>
           </li>
           <li>
-            <a href="">Women</a>
+            <a href="" className="hover:text-amber-600">Women</a>
           </li>
           <li>
-            <a href="">About</a>
+            <a href="" className="hover:text-amber-600">About</a>
           </li>
           <li>
-            <a href="">Contact</a>
+            <a href="" className="hover:text-amber-600">Contact</a>
           </li>
         </ul>
       </nav>
 
       <div className="cart hover:cursor-pointer">
+        {
+          cartNumber && <span className="absolute top-1.5 ml-2 bg-amber-600 px-2 flex justify-center items-center rounded-full text-sm text-white">{total}</span>
+        }
         <img 
         src="/icon-cart.svg" 
         alt="" 
+        className=""
         onClick={() => dispatch(toggleCartState())}
         />
       </div>
